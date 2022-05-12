@@ -32,7 +32,7 @@
             </ul>
             <div class="clearfix"></div>
           </div>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="">Tambah Data</button>
+          <button type="button" class="btn btn-primary" onClick="create()">Tambah Data</button>
           @if (session('status'))
           <div class="alert alert-success">
               {{ session('status') }}
@@ -56,7 +56,7 @@
                   <td>{{ $faculty->nama_fakultas }}</td>
                   <td class="d-flex align-items-center">
                     <a href="" class="badge badge-primary mx-1">Detail</a>
-                    <a href="{{ route('faculties.update',$faculty->kode_fakultas) }}" class="badge badge-success mx-1">Update</a>
+                    <a href="#" class="badge badge-success mx-1" onClick="show({{ $faculty->id }})">Update</a>
                     <form action="{{ route('faculties.destroy',$faculty->kode_fakultas) }}" method="POST" class="">
                       @csrf
                       @method('delete')
@@ -77,36 +77,78 @@
   
 </div>
 {{-- modal add data --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Fakultas</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="{{route('faculties.store')}}" method="POST">
-          @csrf
-          <div class="mb-3">
-            <label for="kode_fakultas" class="col-form-label">Kode Fakultas</label>
-            <input type="text" class="form-control @error('kode_fakultas') is-invalid @enderror" id="kode_fakultas" name="kode_fakultas" value="{{old('kode_fakultas')}}">
-            @error('kode_fakultas')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label for="nama_fakultas" class="col-form-label">Nama Fakultas</label>
-            <input type="text" class="form-control" id="nama_fakultas" name="nama_fakultas">
-          </div>
+      
+         
         
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </div>
-    </form>
+      
+    
     </div>
   </div>
 </div>
+
+
+
+
 <!-- /page content -->
 @endsection
+@push('scripts')
+      <script>  
+      // $(document).ready(function(){
+      // });
+    //function untuk create data  
+    function create(){
+      $.get("{{ url('faculties/create')}}",{},function(data,status){
+        $('#exampleModalLabel').html('Tambah Fakultas');
+        $(".modal-content").html(data);
+        $('#Modal').modal('show');
+      });
+      }
+
+      //function ajax untuk store data 
+      function store() {
+            let form_faculties=$('#form_faculties');
+            // var kode_fakultas = $("#kode_fakultas").val();
+            // var nama_fakultas = $("#nama_fakultas").val();
+            $.ajax({
+                type: form_faculties.attr('method'),
+                url: form_faculties.attr('action'),
+                data: form_faculties.serialize,
+                success: function(data) {
+                  console.log('submission has successfull')
+                  $(".btn-close").click();
+                    //read()
+                }
+            });
+        }
+
+        // Untuk modal halaman edit show
+        function show(id) {
+            $.get("{{ url('show') }}/" + id, {}, function(data, status) {
+            // $.get("{{route('faculties.show',1)}}", {}, function(data, status) {
+              $(".modal-content").html(data);
+              $('#Modal').modal('show');
+            });
+        }
+        //function ajax untuk update
+        function update() {
+            let form_faculties=$('#form_faculties_update');
+            $.ajax({
+                type: form_faculties.attr('method'),
+                url: form_faculties.attr('action'),
+                data: form_faculties.serialize,
+                success: function(data) {
+                  console.log('submission has successfull')
+                  $(".btn-close").click();
+                    //read()
+                }
+            });
+        }
+
+
+
+      
+      </script>  
+@endpush

@@ -18,3 +18,4 @@ Route::get('/', function () {
     return view('admin.index');
 });
 Route::resource('faculties', FacultyController::class);
+Route::get('/show/{id}',[FacultyController::class,'showupdate']);

@@ -28,7 +28,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.faculties.create');
     }
 
     /**
@@ -38,7 +38,8 @@ class FacultyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StorefacultyRequest $request)
-    {
+    {   
+        // @dd($request);
         $request->validate([
             'kode_fakultas' => 'required',
             'nama_fakultas' => 'required'
@@ -55,7 +56,12 @@ class FacultyController extends Controller
      */
     public function show(faculty $faculty)
     {
-        //
+        // return view('admin.faculties.edit',['data'=>$faculty]);
+    }
+    public function showupdate($id)
+    {
+        $data=faculty::findOrFail($id);
+        return view('admin.faculties.edit')->with(compact('data'));
     }
 
     /**
@@ -66,7 +72,7 @@ class FacultyController extends Controller
      */
     public function edit(faculty $faculty)
     {
-        //
+      
     }
 
     /**
@@ -78,7 +84,16 @@ class FacultyController extends Controller
      */
     public function update(UpdatefacultyRequest $request, faculty $faculty)
     {
-        //
+        @dd($request);
+        $request->validate([
+            'kode_fakultas' => 'required',
+            'nama_fakultas' => 'required'
+        ]);
+        faculty::where('id',$faculty->id)->update([
+            'kode_fakultas' => $request->kode_fakultas,
+            'nama_fakultas' => $request->nama_fakultas
+        ]);
+        return redirect('faculties')->with('status', 'Data berhasil diubah');
     }
 
     /**
