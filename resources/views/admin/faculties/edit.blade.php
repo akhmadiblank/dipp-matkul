@@ -2,9 +2,7 @@
   <h5 class="modal-title" id="exampleModalLabel">Update Data Fakultas</h5>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
-<form action="{{ route('faculties.update',$data->id) }}" method="post" id="form_faculties_edit">
-  @method('PUT')
-  @csrf
+<form action="/facultyupdate/{{ $data->id }}" method="get" id="form_faculties_edit">
 <div class="modal-body">
 <div class="mb-3">
     <label for="kode_fakultas" class="col-form-label">Kode Fakultas</label>
@@ -19,6 +17,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary"  onClick="update()">Update</button>
+    <button type="submit" class="btn btn-primary"  onClick="update({{ $data->id }})">Update</button>
   </div>
 </form>

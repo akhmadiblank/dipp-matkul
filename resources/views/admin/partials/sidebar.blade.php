@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
       <div class="navbar nav_title" style="border: 0;">
-        <a href="/" class="site_title"> <img src="images/logo-unair.png" alt="..." class="img-circle" width="23%"></i> <span>Dashboard</span></a>
+        <a href="/" class="site_title"> <img src="{{ URL::asset('images/logo-unair.png')}}" alt="..." class="img-circle" width="23%"></i> <span>Dashboard</span></a>
       </div>
 
       <div class="clearfix"></div>
@@ -9,7 +9,7 @@
       <!-- menu profile quick info -->
       <div class="profile clearfix">
         <div class="profile_pic">
-          <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+          <img src="{{ URL::asset('images/img.jpg')}}" alt="..." class="img-circle profile_img">
         </div>
         <div class="profile_info">
           <span>Welcome,</span>
@@ -27,14 +27,14 @@
           <ul class="nav side-menu">
             <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="faculties">Data Fakultas</a></li>
-                <li><a href="index2.html">Data program Studi</a></li>
-                <li><a href="index3.html">Data Mata Kuliah</a></li>
+                <li><a href="{{ route('faculties.index') }}">Data Fakultas</a></li>
+                <li><a href="{{ route('prodi.index') }}">Data program Studi</a></li>
+                <li><a href="{{ route('matkul.index') }}">Data Mata Kuliah</a></li>
               </ul>
             </li>
             <li><a><i class="fa fa-edit"></i> Fakultas <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="form.html">Fakultas Kedokteran Gigi</a></li>
+                <li><a href="/">Fakultas Kedokteran Gigi</a></li>
                 <li><a href="form_advanced.html">Fakultas Teknologi Maju & Multidisplin</a></li>
                 <li><a href="form_validation.html">Fakultas Keperawatan</a></li>
                 <li><a href="form_wizards.html">Fakultas Kesehatan masyarakat</a></li>

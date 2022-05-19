@@ -8,7 +8,7 @@
         <ul class=" navbar-right">
           <li class="nav-item dropdown open" style="padding-left: 15px;">
             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-              <img src="images/img.jpg" alt="">Administrator
+              <img src="{{ URL::asset('images/img.jpg') }}" alt="">Administrator
             </a>
             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item"  href="javascript:;"> Profile</a>
@@ -29,7 +29,7 @@
             <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
               <li class="nav-item">
                 <a class="dropdown-item">
-                  <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                  <span class="image"><img src="{{ URL::asset('images/img.jpg') }}" alt="Profile Image" /></span>
                   <span>
                     <span>John Smith</span>
                     <span class="time">3 mins ago</span>
@@ -41,7 +41,7 @@
               </li>
               <li class="nav-item">
                 <a class="dropdown-item">
-                  <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                  <span class="image"><img src="{{ URL::asset('images/img.jpg" alt="Profile Image')}}" /></span>
                   <span>
                     <span>John Smith</span>
                     <span class="time">3 mins ago</span>

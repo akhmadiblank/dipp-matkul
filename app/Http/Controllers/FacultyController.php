@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\faculty;
+use App\Models\Faculty;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorefacultyRequest;
 use App\Http\Requests\UpdatefacultyRequest;
+use Illuminate\Http\Request;
 
 class FacultyController extends Controller
 {
@@ -17,7 +18,7 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        $data['faculties']=faculty::all();
+        $data['faculties']=Faculty::all();
         return view('admin.faculties.index',$data);
     }
 
@@ -44,7 +45,7 @@ class FacultyController extends Controller
             'kode_fakultas' => 'required',
             'nama_fakultas' => 'required'
         ]);
-        faculty::create($request->all());
+        Faculty::create($request->all());
         return redirect('faculties')->with('status', 'Data berhasil ditambahkan');
     }
 
@@ -60,7 +61,7 @@ class FacultyController extends Controller
     }
     public function showupdate($id)
     {
-        $data=faculty::findOrFail($id);
+        $data=Faculty::findOrFail($id);
         return view('admin.faculties.edit')->with(compact('data'));
     }
 
@@ -89,7 +90,7 @@ class FacultyController extends Controller
             'kode_fakultas' => 'required',
             'nama_fakultas' => 'required'
         ]);
-        faculty::where('id',$faculty->id)->update([
+        Faculty::where('id',$faculty->id)->update([
             'kode_fakultas' => $request->kode_fakultas,
             'nama_fakultas' => $request->nama_fakultas
         ]);
@@ -102,9 +103,16 @@ class FacultyController extends Controller
      * @param  \App\Models\faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(faculty $faculty)
+    public function destroy(Faculty $faculty)
     {
-        faculty::destroy($faculty->id);
+        Faculty::destroy($faculty->id);
         return redirect('faculties')->with('status','DATA '.$faculty->nama_fakultas.' BERHASIL DI HAPUS');
+    }
+    public function facultyupdate(Request $request, $id){
+        $data = Faculty::findOrFail($id);
+        $data->kode_fakultas = $request->kode_fakultas;
+        $data->nama_fakultas = $request->nama_fakultas;
+        $data->save();
+        return redirect('faculties')->with('status', 'Data berhasil diubah');
     }
 }

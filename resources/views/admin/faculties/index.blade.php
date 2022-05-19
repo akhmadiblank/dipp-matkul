@@ -57,7 +57,7 @@
                   <td class="d-flex align-items-center">
                     <a href="" class="badge badge-primary mx-1">Detail</a>
                     <a href="#" class="badge badge-success mx-1" onClick="show({{ $faculty->id }})">Update</a>
-                    <form action="{{ route('faculties.destroy',$faculty->kode_fakultas) }}" method="POST" class="">
+                    <form action="{{ route('faculties.destroy',$faculty->id) }}" method="POST" class="">
                       @csrf
                       @method('delete')
                       <button type="submit" class="badge badge-danger">Delete</button>
@@ -134,7 +134,7 @@
         }
         //function ajax untuk update
         function update() {
-            let form_faculties=$('#form_faculties_update');
+            let form_faculties=$('form_faculties_edit');
             $.ajax({
                 type: form_faculties.attr('method'),
                 url: form_faculties.attr('action'),
@@ -146,6 +146,22 @@
                 }
             });
         }
+
+        
+        // untuk proses update data
+        // function update(id) {
+        //     var kode = $("#kode_fakultas").val();
+        //     var nama = $("#nama_fakultas").val();
+        //     $.ajax({
+        //         type: "get",
+        //         url: "{{ url('facultyupdate') }}/" + id,
+        //         data: ["name=" + name,"kode="+kode]
+        //         success: function(data) {
+        //             $(".btn-close").click();
+        //             read()
+        //         }
+        //     });
+        // }
 
 
 

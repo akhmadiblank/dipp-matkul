@@ -2,19 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Prodi;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class faculty extends Model
+class Faculty extends Model
 {
-    protected $primarykey='kode_fakultas';
-    public $incrementing=false;
+    // protected $primarykey='kode_fakultas';
+    // public $incrementing=false;
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
-    public function getRouteKeyName()
-    {
-        return 'kode_fakultas';
+    // public function getRouteKeyName()
+    // {
+    //     return 'kode_fakultas';
+    // }
+
+
+    public function prodi(){
+        return $this->hasMany(Prodi::class);
     }
 }
 
