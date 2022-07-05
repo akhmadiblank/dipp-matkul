@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.manajemen_mata_kuliah.template.layout')
 @section('title')
     Data Mata Kuliah
 @endsection
@@ -41,8 +41,8 @@
 
           <a href="{{route('matkul.create')}}" class="btn btn-primary mt-1 mb-2">Tambah data Baru</a>
           {{-- @dd($matkuls) --}}
-          <table class="table table-hover">
-            <thead>
+          <table class="table table-hover"  id="datatable" style="width:100%">
+            
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -57,7 +57,7 @@
                 {{-- @dd( $prodi->faculty->nama_fakultas ) --}}
                 <tr> 
                   <th scope="row">{{ $loop->iteration }}</th>
-                  <td>{{ $matkul->prodi_id }}</td>
+                  <td>{{ $matkul->prodi->nama_prodi }}</td>
                   <td>{{ $matkul->kode_matkul }}</td>
                   <td>{{ $matkul->nama_matkul }}</td>
                   <td class="d-flex align-items-center">

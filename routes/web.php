@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MetodeController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\JadwalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,15 @@ use App\Http\Controllers\FacultyController;
 Route::get('/', function () {
     return view('admin.index');
 });
+Route::get('/manajemen_matkul', function () {
+    return view('admin.manajemen_mata_kuliah.index');
+});
 
 Route::get('/show/{id}',[FacultyController::class,'showupdate']);
 Route::get('/facultyupdate/{id}',[FacultyController::class,'facultyupdate']);
 Route::resource('faculties', FacultyController::class); 
 Route::resource('prodi', ProdiController::class);
 Route::resource('matkul', MatkulController::class);
+Route::resource('metode', MetodeController::class);
+Route::resource('jadwal', JadwalController::class);
+

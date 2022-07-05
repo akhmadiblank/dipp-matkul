@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.manajemen_mata_kuliah.template.layout')
 @section('title')
     Data Program Studi
 @endsection
@@ -39,39 +39,43 @@
           </div>
           @endif
 
-          <a href="{{route('prodi.create')}}" class="btn btn-primary mt-1 mb-2">Tambah data Baru</a>
-          <table class="table table-hover">
-            <thead>
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Fakultas</th>
-                  <th scope="col">Kode Program Studi</th>
-                  <th scope="col">Nama Program Studi</th>
-                  <th scope="col" class="">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($prodies as $prodi )
-                {{-- @dd( $prodi->faculty->nama_fakultas ) --}}
-                <tr>
-                  <th scope="row">{{ $loop->iteration }}</th>
-                  <td>{{ $prodi->faculty_id }}</td>
-                  <td>{{ $prodi->kode_prodi }}</td>
-                  <td>{{ $prodi->nama_prodi }}</td>
-                  <td class="d-flex align-items-center">
-                    <a href="" class="badge badge-primary mx-1">Detail</a>
-                    <a href="{{ route('prodi.edit',$prodi->id)}}" class="badge badge-success mx-1">Update</a>
-                    <form action="{{ route('prodi.destroy',$prodi->id) }}" method="POST" class="">
-                      @csrf
-                      @method('delete')
-                      <button type="submit" class="badge badge-danger">Delete</button>
-                  </form>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-          </table>
+          <div>
+            <a href="{{route('prodi.create')}}" class="btn btn-primary mt-1 mb-2">Tambah data Baru</a>
+            <table class="table table-hover"  id="datatable" style="width:100%">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Fakultas</th>
+                    <th scope="col">Kode Program Studi</th>
+                    <th scope="col">Nama Program Studi</th>
+                    <th scope="col" class="">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($prodies as $prodi )
+                  {{-- @dd( $prodi->faculty->nama_fakultas ) --}}
+                  <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $prodi->faculty->nama_fakultas }}</td>
+                    <td>{{ $prodi->kode_prodi }}</td>
+                    <td>{{ $prodi->nama_prodi }}</td>
+                    <td class="d-flex align-items-center">
+                      <a href="" class="badge badge-primary mx-1">Detail</a>
+                      <a href="{{ route('prodi.edit',$prodi->id)}}" class="badge badge-success mx-1">Update</a>
+                      <form action="{{ route('prodi.destroy',$prodi->id) }}" method="POST" class="">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="badge badge-danger">Delete</button>
+                    </form>
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+            </table>
+  
+          </div>
+         
+          
       </div>
 
     </div>
@@ -83,3 +87,11 @@
 </div>
 <!-- /page content -->
 @endsection
+@push('scripts')
+<script>
+  
+//   $(document).ready( function () {
+//     $('#datatable').DataTable();
+// } );
+</script>
+@endpush

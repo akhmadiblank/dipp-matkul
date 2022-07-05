@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.manajemen_mata_kuliah.template.layout')
 @section('title')
     Data Fakultas |
 @endsection
@@ -38,8 +38,7 @@
               {{ session('status') }}
           </div>
           @endif
-          <table class="table table-hover">
-            <thead>
+          <table class="table table-hover"  id="datatable" style="width:100%">
               <thead>
                 <tr>
                   <th scope="col">#</th>

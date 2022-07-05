@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Prodi;
+use App\Models\Matkul;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -21,6 +22,10 @@ class Faculty extends Model
 
     public function prodi(){
         return $this->hasMany(Prodi::class);
+    }
+
+    public function matkuls(){
+        return $this->hasManyThrough(Matkul::class,Prodi::class);
     }
 }
 
