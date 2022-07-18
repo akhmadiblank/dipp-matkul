@@ -57,5 +57,5 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{ URL::asset('build/js/custom.min.js') }}"></script>
-    {{-- costume scripts  --}}
+    {{-- stack scripts  --}}
     @stack('scripts')

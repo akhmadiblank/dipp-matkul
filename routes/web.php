@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MetodeController;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\MatkulController;
-use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\MatkulController;
+use App\Http\Controllers\MetodeController;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,18 +20,37 @@ use App\Http\Controllers\JadwalController;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.index');
-});
+// Route::get('/', function () {
+//     return view('admin.index');
+// });
+
+Route::get('/',[LoginController::class,'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
+
+
 Route::get('/manajemen_matkul', function () {
     return view('admin.manajemen_mata_kuliah.index');
-});
+})->middleware('auth');
 
-Route::get('/show/{id}',[FacultyController::class,'showupdate']);
-Route::get('/facultyupdate/{id}',[FacultyController::class,'facultyupdate']);
-Route::resource('faculties', FacultyController::class); 
-Route::resource('prodi', ProdiController::class);
-Route::resource('matkul', MatkulController::class);
-Route::resource('metode', MetodeController::class);
-Route::resource('jadwal', JadwalController::class);
+Route::get('/show/{id}',[FacultyController::class,'showupdate'])->middleware('auth');
+Route::get('/facultyupdate/{id}',[FacultyController::class,'facultyupdate'])->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+Route::resources([
+    'faculties'=> FacultyController::class,
+    'prodi'=> ProdiController::class,
+    'matkul'=> MatkulController::class,
+    'metode'=> MetodeController::class
+    ]);
+});
+// Route::resource('faculties', FacultyController::class); 
+// Route::resource('prodi', ProdiController::class);
+// Route::resource('matkul', MatkulController::class);
+// Route::resource('metode', MetodeController::class);
+//jadwal
+Route::resource('jadwal', JadwalController::class)->middleware('auth');
+
+//asset   
+Route::resource('asset',AssetController::class)->middleware('auth');
 

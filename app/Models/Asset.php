@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ruangan extends Model
+class Asset extends Model
 {
     use HasFactory;
-    public function Asset(){
-        return $this->hasMany(Asset::class);
+
+    protected $guarded = ['id'];
+    public function ruangan(){
+        return $this->belongsTo(ruangan::class);
     }
 }

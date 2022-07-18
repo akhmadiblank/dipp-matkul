@@ -1,8 +1,8 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
-      <div class="navbar nav_title" style="border: 0;">
+      {{-- <div class="navbar nav_title" style="border: 0;">
         <a href="/" class="site_title"> <img src="{{ URL::asset('images/logo-unair.png')}}" alt="..." class="img-circle" width="23%"></i> <span>Dashboard</span></a>
-      </div>
+      </div> --}}
 
       <div class="clearfix"></div>
 
@@ -13,7 +13,7 @@
         </div>
         <div class="profile_info">
           <span>Welcome,</span>
-          <h2>Administrator</h2>
+          <h2>{{ auth()->user()->name }}</h2>
         </div>
       </div>
       <!-- /menu profile quick info -->
@@ -26,8 +26,17 @@
           <h3>General</h3>
           <ul class="nav side-menu">
             <li><a href="/manajemen_matkul"><i class="fa fa-home"></i> Manajemen Mata Kuliah </a></li>
-            <li><a href="{{ route('jadwal.index') }}"><i class="fa fa-edit"></i> Jadwal Kegiatan </a></li>
-            <li><a><i class="fa fa-desktop"></i> Informasi Aset</a></li>
+            <li><a href="{{ route('jadwal.index') }}"><i class="fa fa-edit"></i> Manajemen Ruangan </a></li>
+            <li><a href="{{ route('asset.index') }}"><i class="fa fa-desktop"></i> Manajemen Aset</a></li>
+            <li>
+              <form action="/logout" method="post">
+                @csrf
+                <button type="submit" class="text-white btn btn-link" style="text-decoration:none;font-size:13px;">
+                  <i class="fa fa-sign-out"></i>Logout
+                </button>
+              </form>
+            </li>
+
              
           </ul>
         </div>
