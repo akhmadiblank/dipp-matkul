@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Asset;
 use App\Models\ruangan;
 use Illuminate\Http\Request;
+use App\Exports\AssetsExport;
+use App\Imports\AssetsImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class AssetController extends Controller
@@ -145,5 +148,17 @@ class AssetController extends Controller
 
         Asset::destroy($asset->id);
         return redirect('/asset')->with('success', 'Data Telah Berhasil Dihapus');
+    }
+
+    public function assetsExport(){
+        return Excel::download(new AssetsExport,'Asset.xlsx');
+    }
+
+    public function assetsImport(request $request){
+        $file=$request->file('file');
+        $namaFile=$file->getClientOriginalName();
+        $file->move('DataAsset',$namaFile);
+        Excel::import(new AssetsImport,public_path('/DataAsset/'.$namaFile));
+        return redirect('/asset');
     }
 }

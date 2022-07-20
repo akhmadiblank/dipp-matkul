@@ -115,7 +115,7 @@
                 <div class="row form-group">
                   <div class="col-md-4 col-sm-3 ">
                     <label class="form-label">Tanggal Perolehan<span class="required">*</span></label>
-                    <input id="birthday" class="date-picker form-control @error('tanggal_perolehan')is-invalid @enderror" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" style="border-radius: 7px" name="tanggal_perolehan" value ="{{ old('tanggal_perolehan') }}">
+                    <input id="birthday" class="date-picker form-control @error('tanggal_perolehan')is-invalid @enderror" placeholder="dd-mm-yyyy" type="text" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" style="border-radius: 7px" name="tanggal_perolehan" value ="{{ old('tanggal_perolehan') }}">
                     <script>
                         function timeFunctionLong(input) {
                             setTimeout(function() {
@@ -173,13 +173,13 @@
 
                 <div class="row d-flex justify-content-center">
                   
-                    <button type="submit" class="btn btn-primary col-md-5 col-sm-5 mr-5" style="border-radius: 7px;height:50px;">Tambah</button>
-                    <button type="submit" class="btn btn-danger col-md-5 col-sm-5 ml-5" style="border-radius: 7px">cancel</button>
+                    <a type="submit" class="btn btn-primary col-md-5 col-sm-5 mr-5" style="border-radius: 7px;height:50px;color:white;">Tambah</a>
+                    <a href="/asset" class="btn btn-danger col-md-5 col-sm-5 ml-5" style="border-radius: 7px">cancel</a>
+                    
+                  </div>
                   
-                </div>
-
-            </form>
-            
+                </form>
+                
 
               
 

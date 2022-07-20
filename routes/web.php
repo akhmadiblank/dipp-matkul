@@ -9,6 +9,9 @@ use App\Http\Controllers\MetodeController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\LoginController;
 
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +54,18 @@ Route::resources([
 //jadwal
 Route::resource('jadwal', JadwalController::class)->middleware('auth');
 
-//asset   
-Route::resource('asset',AssetController::class)->middleware('auth');
+
+
+// Routing for asset   
+
+// Route::post('/import', function(){
+//     Excel::import(new UsersImport, request()->file('file'));
+//     return back();
+// });
+
+Route::middleware('auth')->group(function () {
+    Route::post('/assetsImport',[AssetController::class,'assetsImport'])->name('assetsImport'); 
+    Route::get('/assetsExport',[AssetController::class,'assetsExport'])->name('assetsExport'); 
+    Route::resource('asset',AssetController::class);
+});
 

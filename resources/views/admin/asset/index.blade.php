@@ -28,7 +28,15 @@
             </div>
             <div class="x_content">
               <a href="{{ route('asset.create') }}" class="btn btn-primary mb-3">TAMBAH DATA</a>
-              
+              <a href="{{ route('assetsExport') }}" class="btn btn-success mb-3">EXPORT DATA</a>
+              <a href="" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#importmodal">IMPORT DATA</a>
+              {{-- <form action="/import" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="input-group mb-3">
+                    <input type="file" name="file" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Import</button>
+                </div>
+            </form> --}}
               @if (session('success'))
               <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -63,7 +71,7 @@
                       <td>{{ $item->ruangan->nama_ruang }}</td>
                       <td>{{ $item->sumber_dana }}</td>
                       <td>{{ $item->jumlah_barang }}</td>
-                      <td>{{ $item->harga_barang }}</td>
+                      <td>@currency($item->harga_barang)</td>
                       <td>{{ $item->keterangan }}</td>
                       <td>{{ $item->status }}</td>
                       {{-- <td><img src="{{asset('storage/'.$item->foto_barang) }}" alt="" srcset=""></td> --}}
@@ -109,10 +117,9 @@
       </div>
   </div>
 
-  {{-- modal --}}
-  <!-- Button trigger modal -->
 
-<!-- Modal -->
+
+<!-- Modal view foto barang-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -132,6 +139,34 @@
   </div>
 </div>
   {{-- end modal --}}
+
+  {{-- modal import data asset --}}
+  <form action="{{ route('assetsImport') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="modal fade" id="importmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">IMPORT DATA ASSET</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <input type="file" name="file" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+            <small class="required">*Upload File Dengan .xlsx</small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Import</button>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  </form>
+  {{-- end modal import data asset --}}
+
 <!-- /page content -->
 @endsection
 @push('scripts')
