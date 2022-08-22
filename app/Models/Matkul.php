@@ -14,7 +14,13 @@ class Matkul extends Model
         return $this->belongsTo(Prodi::class,'prodi_id');
     }
 
-    public function metode(){
-        return $this->hasMany(metode::class);
+    // public function metode(){
+    //     return $this->hasMany(metode::class);
+    // }
+    public function strukturkurikulum(){
+        return $this->hasMany(Strukturkurikulum::class);
+    }
+    public function jenjang(){
+        return $this->belongsTo(Jenjang::class,"jenjang_id");
     }
 }

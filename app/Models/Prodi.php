@@ -3,6 +3,8 @@
 namespace App\Models;
 use App\Models\Matkul;
 use App\Models\Faculty;
+use App\Models\Masterkurikulum;
+use App\Models\StrukturKurikulum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,7 +16,19 @@ class Prodi extends Model
     public function faculty(){
         return $this->belongsTo(Faculty::class,'faculty_id');
     }
+    public function masterkurikulum(){
+        return $this->belongsTo(Masterkurikulum::class,'masterKurikulum_id');
+        
+    }
     public function matkul(){
         return $this->hasMany(Matkul::class);
+    }
+
+    public function strukturkurikulum(){
+        return $this->hasMany(StrukturKurikulum::class);
+    }
+
+    public function jenjang(){
+        return $this->belongsTo(Jenjang::class,'jenjang_id');
     }
 }

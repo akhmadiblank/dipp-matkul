@@ -40,15 +40,17 @@
           @endif
 
           <a href="{{route('matkul.create')}}" class="btn btn-primary mt-1 mb-2">Tambah data Baru</a>
+          <a href="/matkuls/export/" class="btn btn-success mt-1 mb-2">Export Mata Kuliah</a>
+          <a href="" class="btn btn-success mt-1 mb-2" data-bs-toggle="modal" data-bs-target="#importmodal">Import Mata Kuliah</a>
           {{-- @dd($matkuls) --}}
           <table class="table table-hover"  id="datatable" style="width:100%">
             
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Program Studi</th>
                   <th scope="col">Kode Mata Kuliah</th>
                   <th scope="col">Nama Mata Kuliah</th>
+                  <th scope="col">Mata Kuliah Jenjang</th>
                   <th scope="col" class="">Action</th>
                 </tr>
               </thead>
@@ -57,11 +59,10 @@
                 {{-- @dd( $prodi->faculty->nama_fakultas ) --}}
                 <tr> 
                   <th scope="row">{{ $loop->iteration }}</th>
-                  <td>{{ $matkul->prodi->nama_prodi }}</td>
                   <td>{{ $matkul->kode_matkul }}</td>
                   <td>{{ $matkul->nama_matkul }}</td>
+                  <td>{{ $matkul->jenjang->nama }}</td>
                   <td class="d-flex align-items-center">
-                    <a href="" class="badge badge-primary mx-1">Detail</a>
                     <a href="{{ route('matkul.edit',$matkul->id)}}" class="badge badge-success mx-1">Update</a>
                     <form action="{{ route('matkul.destroy',$matkul->id) }}" method="POST" class="">
                       @csrf
@@ -82,5 +83,32 @@
 
   
 </div>
+
+ {{-- modal import data matkul --}}
+ <form action="{{ route('ImportMatkuls') }}" method="post" enctype="multipart/form-data">
+  @csrf
+  <div class="modal fade" id="importmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">IMPORT DATA MATA KULIAH</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <input type="file" name="file" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" required>
+          </div>
+          <small class="required">*Upload File Dengan .xlsx</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Import</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+{{-- end modal import data matkul --}}
 <!-- /page content -->
 @endsection

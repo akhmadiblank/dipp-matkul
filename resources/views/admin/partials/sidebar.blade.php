@@ -25,7 +25,7 @@
         <div class="menu_section">
           <h3>General</h3>
           <ul class="nav side-menu">
-            <li><a href="/manajemen_matkul"><i class="fa fa-home"></i> Manajemen Mata Kuliah </a></li>
+            <li><a href="/dashboardmatkul"><i class="fa fa-home"></i> Manajemen Mata Kuliah </a></li>
             <li><a href="{{ route('jadwal.index') }}"><i class="fa fa-edit"></i> Manajemen Ruangan </a></li>
             <li><a href="{{ route('asset.index') }}"><i class="fa fa-desktop"></i> Manajemen Aset</a></li>
             <li>

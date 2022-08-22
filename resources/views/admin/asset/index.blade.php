@@ -77,7 +77,7 @@
                       {{-- <td><img src="{{asset('storage/'.$item->foto_barang) }}" alt="" srcset=""></td> --}}
                       <td class="text-center">
                         <a href="{{ route('asset.edit',$item->id) }}" class="btn btn-primary"><i class="fa fa-gear"></i></i></button>
-                        <a type="submit" class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever={{ $item->foto_barang }}><i class="fa fa-eye"></i></a>
+                        <a type="submit" class="btn btn-warning"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever={{ $item->foto_barang }}><i class="{{ ($item->foto_barang)?"fa fa-eye":"fa fa-camera" }}"></i></a>
                         <form action="{{ route('asset.destroy',$item->id) }}" method="POST" class="d-inline">
                           @csrf
                           @method('delete')
@@ -94,17 +94,17 @@
               </div>
 
               <div class="row mt-5">
-                <div class="col-md-6">
-                  <h2 class="text-center fw-bold pe-5">Denah dan Data Inventaris</h2>
-                  <img class="ps-5" src="{{ URL::asset('images/DENAH1.png')}}" alt="" srcset="">
+                <div class="col-md-6 col-sm-6 d-flex flex-column">
+                  <h2 class="text-center">Denah dan Data Inventaris Ruangan</h2>
+                  <img class="d-flex justify-content-center" src="{{ URL::asset('images/DENAH.png')}}" alt="" style="width:95log%">
                 </div>
 
-                <div class="col-md-6 mt-4">
+                <div class="col-md-6 col-sm-5 mt-4">
 
                   <h2>Nama ruangan</h2>
                   <ol class="list-group list-group-numbered">
                     @foreach ($ruangan as $item )
-                    <li><a href="http://">{{ $item->nama_ruang }}</a></li>
+                    <li><a href="{{'/showRoom/id_ruangan?id='.$item->id.'&nama_ruang='.$item->nama_ruang }}">{{ $item->nama_ruang }}</a></li>
                     @endforeach
                   </ol>
                 </div>

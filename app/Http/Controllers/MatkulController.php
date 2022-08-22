@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prodi;
+use App\Models\Jenjang;
 use App\Models\Matkul;
 use Illuminate\Http\Request;
+use App\Exports\MatkulsExport;
+use App\Imports\MatkulsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MatkulController extends Controller
 {
@@ -28,6 +32,7 @@ class MatkulController extends Controller
     public function create()
     {
         $data['prodis']=Prodi::all();
+        $data['jenjang']=Jenjang::all();
         return view('admin.matkul.create',$data);
     }
 
@@ -40,15 +45,12 @@ class MatkulController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'prodi_id' => 'required',
             'kode_matkul' => 'required|unique:matkuls,kode_matkul',
             'nama_matkul' => 'required',
+            'jenjang_id' => 'required',
         ]);
         // dd($validateData);
-        
-      
         //return $validateData;
-
         Matkul::create($validateData);
         return redirect('matkul')->with('success', 'Mata Kuliah Sudah berhasil di tambahkan ');
 
@@ -75,8 +77,9 @@ class MatkulController extends Controller
     public function edit(matkul $matkul)
     {
         return view('admin.matkul.edit',[
-            'prodis' => Prodi::all(),
-            'matkul' =>$matkul
+            
+            'matkul' =>$matkul,
+            'jenjang'=>Jenjang::all()
         ]);
     }
 
@@ -90,9 +93,10 @@ class MatkulController extends Controller
     public function update(Request $request, matkul $matkul)
     {
         $rules = [
-            'prodi_id' => 'required',
+            
             'kode_matkul' => 'required',
             'nama_matkul' => 'required',
+            'jenjang_id' => 'required',
         ];
         $validateData = $request->validate($rules);
         Matkul::where('id', $matkul->id)
@@ -110,8 +114,23 @@ class MatkulController extends Controller
      */
     public function destroy(matkul $matkul)
     {
+        // dd($matkul);
         matkul::destroy($matkul->id);
         return redirect('matkul')->with('success', 'Mata kuliah Sudah berhasil di hapus');
 
+    }
+
+    public function exportMatkuls() 
+    {
+        return Excel::download(new MatkulsExport, 'daftar mata kuliah.xlsx');
+    }
+    public function importMatkuls(request $request) 
+    {   
+        $file=$request->file('file');
+        $namaFile=$file->getClientOriginalName();
+        $file->move('DataMatkuls',$namaFile);
+        Excel::import(new MatkulsImport,public_path('/DataMatkuls/'.$namaFile));
+        
+        return redirect('/matkul')->with('success', 'Data Berhasil di Import');
     }
 }

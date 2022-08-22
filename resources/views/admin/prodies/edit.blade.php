@@ -73,7 +73,38 @@
                         @enderror 
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary"> Tambah</button>
+                <div class="form-group row">
+                  <label for="fakultas" class="col-sm-2 col-form-label">Jenjang</label>
+                  <div class="col-sm-10">
+                    
+                  <select class="form-select" name="jenjang_id">
+                    @foreach ( $jenjang as $item)
+                    @if (old('jenjang_id',$item->id)==$prodi->jenjang_id)
+                    <option selected value={{ $item->id }}>{{ $item->nama}}</option>
+                    @else
+                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                    
+                    @endif
+                    @endforeach
+                  </select>
+                   </div>
+               </div>
+                <div class="form-group row">
+                  <label for="fakultas" class="col-sm-2 col-form-label">Kurikulum</label>
+                  <div class="col-sm-10">
+                  <select class="form-select" name="masterKurikulum_id">
+                    <option selected value="">Choose option</option>
+                    @foreach ($masterKurikulum as $item )
+                    @if (old('masterKurikulum_id',$prodi->masterKurikulum_id)==$item->id)
+                    <option selected value="{{ $item->id }}">{{$item->tahun_kurikulum }}</option>
+                    @else
+                    <option value="{{ $item->id }}">{{$item->tahun_kurikulum }}</option>
+                    @endif
+                    @endforeach
+                   </select>
+                   </div>
+                </div>
+                <button type="submit" class="btn btn-primary"> Edit</button>
 
             </form>
         </div>

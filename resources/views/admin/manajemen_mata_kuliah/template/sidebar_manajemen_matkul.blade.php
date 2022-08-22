@@ -25,29 +25,27 @@
         <div class="menu_section">
           <h3>General</h3>
           <ul class="nav side-menu">
+            <li><a href="/dashboardmatkul"><i class="fa fa-home"></i> Rekapitulasi</a></li>
+              {{-- <ul class="nav child_menu">
+                <li><a href="/dashboardmatkul">Grafik Data</a></li>
+                
+              </ul> --}}
+            {{-- </li> --}}
             <li><a><i class="fa fa-windows"></i> Main Data <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{ route('faculties.index') }}">Data Fakultas</a></li>
-                <li><a href="{{ route('prodi.index') }}">Data program Studi</a></li>
+                <li><a href="{{ route('prodi.index') }}">Data Program Studi</a></li>
                 <li><a href="{{ route('matkul.index') }}">Data Mata Kuliah</a></li>
               </ul>
             </li>
-            <li><a><i class="fa fa-edit"></i> Fakultas <span class="fa fa-chevron-down"></span></a>
+            {{-- <li><a><i class="fa fa-edit"></i> Fakultas <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="{{ route('metode.index') }}">Fakultas Kedokteran Gigi</a></li>
-                <li><a href="/fkg">Fakultas Teknologi Maju & Multidisplin</a></li>
-                <li><a href="form_validation.html">Fakultas Keperawatan</a></li>
-                <li><a href="form_wizards.html">Fakultas Kesehatan masyarakat</a></li>
-                <li><a href="form_upload.html">Fakultas Ekonomi & Bisbis</a></li>
-                <li><a href="form_buttons.html">Fakultas Perikanan & Kelautan</a></li>
-                <li><a href="form_buttons.html">Fakultas Psikologi</a></li>
-                <li><a href="form_buttons.html">Fakultas Ilmu Budaya</a></li>
-                <li><a href="form_buttons.html">Fakultas Ilmu sosial & Ilmu Hukum</a></li>
-                <li><a href="form_buttons.html">Fakultas Sains & Teknologi</a></li>
-                <li><a href="form_buttons.html">Fakultas Kedokteran</a></li>
+                @foreach ( $listFaculty as $item )
+                <li><a href="/filterByFaculty/id?id={{ $item->id }}">{{ $item->nama_fakultas }}</a></li>
+                @endforeach
               </ul>
-            </li>
-            <li><a href="/"><i class="fa fa-home"></i>Back To menu</a></li>
+            </li> --}}
+            <li><a href="/jadwal"><i class="fa fa-clone"></i>Back To menu</a></li>
           
             {{-- <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">

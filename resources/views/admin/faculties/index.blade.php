@@ -54,7 +54,7 @@
                   <td>{{ $faculty->kode_fakultas }}</td>
                   <td>{{ $faculty->nama_fakultas }}</td>
                   <td class="d-flex align-items-center">
-                    <a href="" class="badge badge-primary mx-1">Detail</a>
+                    <a href="/filterByFaculty/id?id={{ $faculty->id }}" class="badge badge-primary mx-1">Detail</a>
                     <a href="#" class="badge badge-success mx-1" onClick="show({{ $faculty->id }})">Update</a>
                     <form action="{{ route('faculties.destroy',$faculty->id) }}" method="POST" class="">
                       @csrf

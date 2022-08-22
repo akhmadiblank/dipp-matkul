@@ -96,7 +96,7 @@
                     <label class="form-label control-label">status</label>
                     <select class="form-control @error('status')is-invalid @enderror" style="border-radius: 7px" name="status">
                       @php
-                        $status=["Baik","Rusak ringan","Rusak berat","Dihapus","Dilimpahkan","Dihibahkan"];
+                        $status=["Asset","Barang Berlebih"];
                       @endphp
                       <option>Choose option</option>
                       @foreach ($status as $item )

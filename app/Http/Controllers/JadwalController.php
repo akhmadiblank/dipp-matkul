@@ -138,4 +138,8 @@ class JadwalController extends Controller
         return redirect('/jadwal')->with('success', 'Data Telah Berhasil Dihapus');
 
     }
+
+    public function filterData(){
+        
+    }
 }

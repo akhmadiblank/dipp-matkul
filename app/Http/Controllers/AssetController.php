@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Asset;
 use App\Models\ruangan;
+// use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Exports\AssetsExport;
 use App\Imports\AssetsImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+
 
 class AssetController extends Controller
 {
@@ -160,5 +163,26 @@ class AssetController extends Controller
         $file->move('DataAsset',$namaFile);
         Excel::import(new AssetsImport,public_path('/DataAsset/'.$namaFile));
         return redirect('/asset');
+    }
+    public function showRoom(Request $request){
+        // @dd($request);
+        $room = Asset::where('ruangan_id',$request->id)->get();
+        return view('admin.asset.show',[
+            'room' =>$room,
+            'nama_ruang' =>$request->nama_ruang,
+        ]);
+    }
+
+    public function cetak_laporan(Request $request){
+        $room = Asset::where('ruangan_id',$request->id)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->setOptions(['defaultFont' => 'dejavu serif']);
+        $pdf->setPaper('a4', 'potrait');
+        $pdf->loadView('admin.asset.print',[
+            'room'=>$room,
+            'nama_ruang' =>$request->nama_ruang,
+        ]);
+        return $pdf->stream();
+        
     }
 }

@@ -31,23 +31,22 @@
             <form method="post" action="/login">
               @csrf
               <h1>Login Form</h1>
-              <div>
+                <div>
                 <input type="text" name="name" class="form-control @error('email')is-invalid @enderror" placeholder="Username" required autofocus/>
                 @error('name')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
-              @enderror
-
-            </div>
-              <div>
+                @enderror
+                </div>
+                <div>
                 <input type="password" name="password" class="form-control @error('email')is-invalid @enderror" placeholder="Password" required="" />
                 @error('password')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
-              @enderror
-            </div>
+                 @enderror
+                </div>
               <div>
                 <button class="btn btn-secondary submit" type="submit" style="width: 60%;">Log in</button>
                 {{-- <a class="reset_pass" href="#">Lost your password?</a> --}}

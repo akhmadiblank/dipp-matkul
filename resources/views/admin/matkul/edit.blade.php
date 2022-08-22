@@ -36,20 +36,7 @@
             <form action="{{ route('matkul.update',$matkul->id) }}" method="post">
               @method('put')
                 @csrf
-                <div class="form-group row">
-                    <label for="fakultas" class="col-sm-2 col-form-label">Program Studi</label>
-                    <div class="col-sm-10">
-                    <select class="form-select" name="prodi_id">
-                      @foreach ($prodis as $prodi )
-                      @if (old('prodi_id')==$prodi->id)
-                      <option selected value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
-                      @else
-                      <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
-                      @endif
-                      @endforeach
-                    </select>
-                     </div>
-                </div>
+               
                 <div class="form-group row">
                     <label for="kode_matkul" class="col-sm-2 col-form-label">Kode Mata Kuliah</label>
                     <div class="col-sm-10">
@@ -74,7 +61,22 @@
                         @enderror 
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary"> Tambah</button>
+                <div class="form-group row">
+                  <label for="fakultas" class="col-sm-2 col-form-label">Jenjang</label>
+                  <div class="col-sm-10">
+                  <select class="form-select" name="jenjang_id">
+                    <option selected value="">Choose option</option>
+                    @foreach ($jenjang as $item )
+                    @if (old('masterKurikulum_id',$matkul->jenjang_id)==$item->id)
+                    <option selected value="{{ $item->id }}">{{$item->nama }}</option>
+                    @else
+                    <option value="{{ $item->id }}">{{$item->nama }}</option>
+                    @endif
+                    @endforeach
+                   </select>
+                   </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Edit</button>
 
             </form>
         </div>

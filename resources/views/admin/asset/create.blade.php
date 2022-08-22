@@ -94,14 +94,11 @@
                   <div class="col-md-6 col-sm-6">
                     <label class="form-label control-label">status</label>
                     <select class="form-control @error('status')is-invalid @enderror" style="border-radius: 7px" name="status">
-                      <option>Choose option</option>
+                      <option value="">Choose option</option>
                      
-                      <option value="baik">Baik</option>
-                      <option value="rusak ringan">Rusak Ringan</option>
-                      <option value="rusak berat">Rusak Berat</option>
-                      <option value="dihapus">Dihapus</option>
-                      <option value="dilimpahkan">Dilimpahkan</option>
-                      <option value="dihibahkan">Dihibahkan</option>
+                      <option value="Asset">Asset</option>
+                      <option value="Barang Berlebih">Barang Berlebih</option>
+                     
                    
                     </select>
                     @error('status')
@@ -173,7 +170,7 @@
 
                 <div class="row d-flex justify-content-center">
                   
-                    <a type="submit" class="btn btn-primary col-md-5 col-sm-5 mr-5" style="border-radius: 7px;height:50px;color:white;">Tambah</a>
+                    <button type="submit" class="btn btn-primary col-md-5 col-sm-5 mr-5" style="border-radius: 7px;height:50px;color:white;">Tambah</button>
                     <a href="/asset" class="btn btn-danger col-md-5 col-sm-5 ml-5" style="border-radius: 7px">cancel</a>
                     
                   </div>

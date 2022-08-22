@@ -84,9 +84,9 @@
               <div id="room-button" class="mb-5" >
                  <div class="row mt-3">
                   <div class="col-md-12 d-flex justify-content-center">
-                    <a class="text-center rounded" href=""><img class="img-button" src="{{ URL::asset('images/meeting-room.jpg')}}" alt=""></a> 
-                    <a class="text-center rounded" href=""><img class="img-button" src="{{ URL::asset('images/podcast-room.jpg')}}" alt=""></a>
-                    <a class="text-center rounded" href=""><img class="img-button" src="{{ URL::asset('images/lab-room.jpg')}}" alt=""></a> 
+                    <a class="text-center rounded" id="meeting-room" value="3"><img class="img-button" src="{{ URL::asset('images/meeting-room.jpg')}}" alt=""></a> 
+                    <a class="text-center rounded" id="podcast-room" value="2"><img class="img-button" src="{{ URL::asset('images/podcast-room.jpg')}}" alt=""></a>
+                    <a class="text-center rounded" id="lab-room" value="1"><img class="img-button" src="{{ URL::asset('images/lab-room.jpg')}}" alt=""></a> 
                   </div>
                 </div>
               </div>
@@ -176,7 +176,46 @@
 
 @push('scripts')
 <script>
+//ajax filter buttons
 
+let meetingRoom=document.querySelector('#meeting-room');
+let podcastRoom=document.querySelector('#podcast-room');
+let labRoom=document.querySelector('#lab-room');
+
+// meetingRoom.addEventListener('click',function(){
+//   console.log(labRoom.getAttribute('value'))
+// });
+
+$('#meeting-room').click(function(e){
+        e.preventDefault();
+        var filtertables = $('#datatable').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                url:"/ordersFilterAjaxData",
+                "data": function ( d ) {
+                    d.extra_search = labRoom.getAttribute('value');
+                }
+            },
+            "columns": [
+                { "data": "tripId" },
+                { "data": "username" },
+                { "data": "MTS" },
+                { "data": "drivername" }, 
+                { "data": "date" },
+                { "data": "time" },
+                { "data": "user_order_amount" },
+                { "data": "user_order_pay_mode" },
+                { "data": "user_order_status" },
+                { "data": "rideStatus" }, 
+                { "data": "Dvr" },
+                { "data": "Serv" },                 
+            ]
+
+        })
+      });
+
+//preview photos
 var exampleModal = document.getElementById('exampleModal')
 exampleModal.addEventListener('show.bs.modal', function (event) {
   // Button that triggered the modal
