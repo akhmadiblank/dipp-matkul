@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKurikulumMastersTable extends Migration
+class CreateMasterkurikulumProdisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateKurikulumMastersTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterKurikulums', function (Blueprint $table) {
-            $table->id();
-            $table->string('tahun_kurikulum');
-            $table->string('keterangan');
-            $table->timestamps();
+        Schema::create('masterkurikulum_prodi', function (Blueprint $table) {
+            $table->unsignedInteger('prodi_id');
+            $table->unsignedInteger('masterkurikulum_id');
+            $table->primary(['prodi_id','masterkurikulum_id']);
         });
-        
     }
 
     /**
@@ -29,6 +27,6 @@ class CreateKurikulumMastersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('masterKurikulum');
+        Schema::dropIfExists('masterkurikulum_prodi');
     }
 }

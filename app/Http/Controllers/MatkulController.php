@@ -20,7 +20,7 @@ class MatkulController extends Controller
     public function index()
     {
         return view('admin.matkul.index',[
-            'matkuls' => Matkul::all()
+            'matkuls' => Matkul::with('jenjang')->get()
         ]);
     }
 

@@ -96,7 +96,7 @@
                     <select class="form-control @error('status')is-invalid @enderror" style="border-radius: 7px" name="status">
                       <option value="">Choose option</option>
                      
-                      <option value="Asset">Asset</option>
+                      <option value="Asset DIPP">Asset DIPP</option>
                       <option value="Barang Berlebih">Barang Berlebih</option>
                      
                    

@@ -3,33 +3,34 @@
 namespace App\Exports;
 
 use App\Models\Matkul;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class MatkulsExport implements FromCollection,WithHeadings,WithCustomStartCell
+
+class MatkulsExport implements FromView,ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     use Exportable;
-    public function startCell(): string
+    public function view(): View
     {
-        return 'B2';
+    
+        
+        $this->data=Matkul::all()
+                    ->transform(function($item){
+                        return [
+                            'kode_matkul' => $item->kode_matkul??'-',
+                            'nama_matkul' => $item->nama_matkul??'_',
+                            'jenjang'=>$item->jenjang->nama??'_',
+                        ];
+                    });
+
+        return view('admin.matkul.export', [
+            'items' => $this->data,
+        ]);
     }
-    public function collection()
-    {
-        $matkuls=Matkul::all();
-        $matkuls = $matkuls->makeHidden(['id','created_at','updated_at']);
-        return $matkuls;
-    }
-    public function headings(): array
-    {
-        return [
-            'Kode Matkul',
-            'Nama Matkul',
-            'jenjang_id'
-        ];
-    }
+    
 }

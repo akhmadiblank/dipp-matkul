@@ -20,8 +20,8 @@ class StrukturKurikulum extends Model
     public function matkul(){
         return $this->belongsTo(Matkul::class,'matkul_id');
     }
-    public function kategoriunsur(){
-        return $this->belongsTo(KategoriUnsur::class,'kategoriunsur_id');
+    public function kategoriunsurs(){
+        return $this->belongsToMany(KategoriUnsur::class);
     }
     public function prodi(){
         return $this->belongsTo(Prodi::class,'prodi_id');

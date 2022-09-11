@@ -7,6 +7,10 @@ use App\Models\Semester;
 use Illuminate\Http\Request;
 use App\Models\KategoriUnsur;
 use App\Models\StrukturKurikulum;
+use App\Exports\Struktur_kurikulumsExport;
+use App\Imports\Struktur_kurikulumsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use id;
 
 class StrukturKurikulumController extends Controller
 {
@@ -36,7 +40,7 @@ class StrukturKurikulumController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->boolean('project_base_learning'));
+        // dd($request->kategoriunsurs);
         $validateData = $request->validate([
             'prodi_id' => 'required',
             'masterkurikulum_id' => 'required',
@@ -44,7 +48,6 @@ class StrukturKurikulumController extends Controller
             'matkul_id' => 'required',
             'beban_studi' => 'nullable',
             'bentuk_pembelajaran'=>'nullable',
-            'kategoriunsur_id' => 'nullable',
             'prasyarat' => 'nullable',
             'project_base_learning' => 'nullable',
             'case_base_learning' => 'nullable',
@@ -57,12 +60,14 @@ class StrukturKurikulumController extends Controller
         $validateData['case_base_learning']=$request->boolean('case_base_learning');
         $validateData['problem_based_learning']=$request->boolean('problem_based_learning');
         $validateData['others']=$request->boolean('others');
+        
         // dd($validateData);
         
-      
+        
         //return $validateData;
-
-        StrukturKurikulum::create($validateData);
+        
+        $strukturKurikulum=StrukturKurikulum::create($validateData);
+        $strukturKurikulum->kategoriunsurs()->attach($request->kategoriunsurs);
         return redirect('showkurikulum/'.$request->prodi_id.'/'.$request->masterkurikulum_id.'')->with('success', 'Program Studi Sudah berhasil di tambahkan ');
     }
 
@@ -124,7 +129,7 @@ class StrukturKurikulumController extends Controller
         $validateData['others']=$request->boolean('others');
 
         // dd($strukturKurikulum);
-
+        StrukturKurikulum::findOrFail($strukturKurikulum->id)->kategoriunsurs()->sync($request->kategoriunsurs);
         StrukturKurikulum::where('id',$strukturKurikulum->id)->update($validateData);
         return redirect('showkurikulum/'.$strukturKurikulum->prodi_id.'/'.$strukturKurikulum->masterkurikulum_id.'')->with('success', 'Program Studi Sudah berhasil di tambahkan ');
    
@@ -142,8 +147,8 @@ class StrukturKurikulumController extends Controller
     {
         // ddd($strukturKurikulum);
         
-        // $param=StrukturKurikulum::find($strukturKurikulum);
         // dd($param->prodi_id);
+        StrukturKurikulum::findOrFail($strukturKurikulum->id)->kategoriunsurs()->detach();
         StrukturKurikulum::destroy($strukturKurikulum->id);
         return redirect('showkurikulum/'.$strukturKurikulum->prodi_id.'/'.$strukturKurikulum->masterkurikulum_id)->with('success', 'Program Studi Sudah berhasil di hapus');
     }
@@ -154,6 +159,7 @@ class StrukturKurikulumController extends Controller
         $data['semester']=Semester::all();
         $data['matkul']=Matkul::all();
         $data['kategori_unsurs']=KategoriUnsur::all();
+        
         return view('admin.struktur_kurikulum.create',$data);
     }
 
@@ -164,5 +170,32 @@ class StrukturKurikulumController extends Controller
         $data['prodi_id']=$id;
         $data['masterkurikulum_id']=$masterKurikulum_id;
         return view('admin.struktur_kurikulum.show',$data);
+    }
+    public function exportStrukturKurikulum($id,$masterKurikulum_id) 
+    {
+        //  $param1=settype($id,"integer");
+        //  $param2=settype($masterKurikulum_id,"integer");
+        //  dd($param1,$param2);
+        return Excel::download(new Struktur_kurikulumsExport($id,$masterKurikulum_id),'Strukutur-kurikulum.xlsx');
+    }
+    public function importStrukturKurikulum(Request $request){
+
+        $prodi_id=$request->prodi_id;
+        $masterKurikulum_id=$request->masterkurikulum_id;
+        // dd();
+        try {
+           
+            Excel::import(new Struktur_kurikulumsImport($prodi_id,$masterKurikulum_id), request()->file('attachment'));
+            return redirect("/showkurikulum/$prodi_id/$masterKurikulum_id")->with('success', 'All data successfully imported!');
+        }
+        catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errors = '';
+            foreach ($failures as $failure)  {
+                $errors.= "Row {$failure->row()} : ";
+                $errors.= implode(',', $failure->errors()).' ';
+            }
+            return redirect("/showkurikulum/$prodi_id/$masterKurikulum_id")->with('error', $errors);
+        }
     }
 }

@@ -20,7 +20,7 @@ class CreateStrukturKurikulumsTable extends Migration
             $table->foreignId('matkul_id');
             $table->integer('beban_studi');
             $table->json('bentuk_pembelajaran')->nullable();
-            $table->string('kategoriunsur_id');
+            // $table->string('kategoriunsur_id');
             $table->string('prasyarat');
             $table->boolean('project_base_learning');
             $table->boolean('case_base_learning');

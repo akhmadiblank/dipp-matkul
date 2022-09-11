@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Masterkurikulum extends Model
+class Akreditasi extends Model
 {
-    // protected $table = 'masterkurikulum';
     use HasFactory;
-    public function prodis(){
+
+    public function prodi(){
         return $this->belongsToMany(Prodi::class);
     }
 }

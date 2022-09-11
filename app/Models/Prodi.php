@@ -16,10 +16,7 @@ class Prodi extends Model
     public function faculty(){
         return $this->belongsTo(Faculty::class,'faculty_id');
     }
-    public function masterkurikulum(){
-        return $this->belongsTo(Masterkurikulum::class,'masterKurikulum_id');
-        
-    }
+   
     public function matkul(){
         return $this->hasMany(Matkul::class);
     }
@@ -30,5 +27,12 @@ class Prodi extends Model
 
     public function jenjang(){
         return $this->belongsTo(Jenjang::class,'jenjang_id');
+    }
+    public function akreditasi(){
+        return $this->belongsToMany(Akreditasi::class);
+    }
+
+    public function masterkurikulums(){
+        return $this->belongsToMany(Masterkurikulum::class);
     }
 }

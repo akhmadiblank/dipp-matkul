@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKurikulumMastersTable extends Migration
+class CreateAkreditasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateKurikulumMastersTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterKurikulums', function (Blueprint $table) {
+        Schema::create('akreditasis', function (Blueprint $table) {
             $table->id();
-            $table->string('tahun_kurikulum');
+            $table->string('kode');
             $table->string('keterangan');
             $table->timestamps();
         });
-        
+        Schema::create('akreditasi_prodi', function (Blueprint $table) {
+            $table->unsignedInteger('akreditasi_id');
+            $table->unsignedInteger('prodi_id');
+            $table->primary(['akreditasi_id','prodi_id']);
+        });
     }
 
     /**
@@ -29,6 +33,6 @@ class CreateKurikulumMastersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('masterKurikulum');
+        Schema::dropIfExists(['akreditasis','akreditasi_prodi']);
     }
 }

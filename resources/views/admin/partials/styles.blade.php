@@ -21,7 +21,10 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('build/css/custom.min.css') }}" rel="stylesheet">
+    {{-- multiple2 input --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
    
+    
     <!-- Datatables -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">

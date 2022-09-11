@@ -64,7 +64,19 @@
                   <td class="text-center">{{ $item->kode_prodi}}</td>
                   <td class="text-center">{{ $item->nama_prodi}}</td>
                   <td class="text-center">{{$item->jenjang->nama}}</td>
-                  <td class="text-center"><a href="{{ route('showkurikulum',['prodi_id'=>$item->id,'masterkurikulum_id'=>$item->masterKurikulum_id])}}">{{ $item->masterkurikulum->tahun_kurikulum}}</a></td>
+                  <td class="text-center">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Tahun Kurikulum<span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        @foreach ($item->masterkurikulums as $masterkurikulum )
+                        <li><a class="dropdown-item" href="{{ route('showkurikulum',['prodi_id'=>$item->id,'masterkurikulum_id'=>$masterkurikulum->id])}}">{{ $masterkurikulum->tahun_kurikulum }}</a></li>
+                        @endforeach
+                      </ul>
+                    </div>
+                   
+                  </td>
+                  {{-- <td class="text-center"><a href="{{ route('showkurikulum',$item->id)}}">tahun_kurikulum</a></td> --}}
                   
                   {{-- <td> 
                     <button type="submit" class="btn btn-warning"><i class="fa fa-pencil"></i></i>Update</button>

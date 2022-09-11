@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKurikulumMastersTable extends Migration
+class DropMasterKurikulumIdColumnInProdis extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateKurikulumMastersTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterKurikulums', function (Blueprint $table) {
-            $table->id();
-            $table->string('tahun_kurikulum');
-            $table->string('keterangan');
-            $table->timestamps();
+        Schema::table('prodis', function (Blueprint $table) {
+            $table->dropColumn('masterKurikulum_id');
         });
-        
     }
 
     /**
@@ -29,6 +25,8 @@ class CreateKurikulumMastersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('masterKurikulum');
+        Schema::table('prodis', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -54,8 +54,8 @@
      <script src="{{ URL::asset('vendors/jszip/dist/jszip.min.js') }}"></script>
      <script src="{{ URL::asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
      <script src="{{ URL::asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
- 
-
+    {{-- multiple2 input --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{ URL::asset('build/js/custom.min.js') }}"></script>
     {{-- stack scripts  --}}

@@ -9,7 +9,8 @@ class KategoriUnsur extends Model
 {
     use HasFactory;
     protected $table = 'kategori_unsurs';
-    public function strukturkurikulum(){
-        return $this->hasMany(StrukturKurikulum::class);
+    public function strukturkurikulums(){
+        return $this->belongsToMany(StrukturKurikulum::class);
     }
+
 }

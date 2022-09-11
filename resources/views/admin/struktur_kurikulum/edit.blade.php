@@ -170,7 +170,7 @@
                 </div>
 
                 
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                   <label class="control-label col-md-3 col-sm-3 ">Kategori Unsur</label>
                   <div class="col-md-9 col-sm-9 ">
 
@@ -185,6 +185,24 @@
                       @endforeach
                     </select>
                   </div>
+                </div> --}}
+
+                <div class="form-group row">
+                  <label for="fakultas" class="col-md-3 col-form-label">Kategori Unsur</label>
+                  <div class="col-md-9">
+                    <select class="js-example-responsive" name="kategoriunsurs[]" multiple="multiple" style="width:100%;">
+                      {{-- <option selected value="">Choose option</option> --}}
+                      @foreach ( $kategori_unsurs as $item )
+                     <option value="{{ $item->id }}"
+                      @foreach ($param->kategoriunsurs as $value )
+                        @if ($item->id==$value->id)
+                          selected
+                        @endif
+                        
+                      @endforeach>{{ $item->kode }}</option>
+                      @endforeach
+                    </select>
+                   </div>
                 </div>
 
                 <div class="form-group row">
@@ -209,3 +227,12 @@
   <!-- /page content -->
 
 @endsection
+@push('scripts')
+  <script>
+    $(document).ready(function() {
+    $('.js-example-responsive').select2({
+      width: 'resolve'
+    });
+});
+  </script>
+@endpush

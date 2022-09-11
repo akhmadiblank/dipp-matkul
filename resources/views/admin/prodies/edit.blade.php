@@ -89,7 +89,43 @@
                   </select>
                    </div>
                </div>
-                <div class="form-group row">
+               <div class="form-group row">
+                <label for="fakultas" class="col-md-2 col-form-label">Akreditasi</label>
+                <div class="col-md-10">
+                  <select class="js-example-responsive" name="akreditasi[]" multiple="multiple" style="width:100%;">
+                    {{-- <option selected value="">Choose option</option> --}}
+                    @foreach ( $akreditasis as $item )
+                   <option value="{{ $item->id }}"
+                    @foreach ($prodi->akreditasi as $value )
+                      @if ($item->id==$value->id)
+                        selected
+                      @endif
+                      
+                    @endforeach>{{ $item->kode }}</option>
+                    @endforeach
+                  </select>
+                 </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="fakultas" class="col-md-2 col-form-label">Kurikulum</label>
+                <div class="col-md-10">
+                  <select class="js-example-responsive" name="masterKurikulum_id[]" multiple="multiple" style="width:100%;">
+                    {{-- <option selected value="">Choose option</option> --}}
+                    @foreach ( $masterKurikulum  as $item )
+                   <option value="{{ $item->id }}"
+                    @foreach ($prodi->masterkurikulums as $value )
+                      @if ($item->id==$value->id)
+                        selected
+                      @endif
+                      
+                    @endforeach>{{ $item->tahun_kurikulum }}</option>
+                    @endforeach
+                  </select>
+                 </div>
+              </div>
+
+                {{-- <div class="form-group row">
                   <label for="fakultas" class="col-sm-2 col-form-label">Kurikulum</label>
                   <div class="col-sm-10">
                   <select class="form-select" name="masterKurikulum_id">
@@ -103,7 +139,7 @@
                     @endforeach
                    </select>
                    </div>
-                </div>
+                </div> --}}
                 <button type="submit" class="btn btn-primary"> Edit</button>
 
             </form>
@@ -119,3 +155,12 @@
   <!-- /page content -->
 
 @endsection
+@push('scripts')
+  <script>
+    $(document).ready(function() {
+    $('.js-example-responsive').select2({
+      width: 'resolve'
+    });
+});
+  </script>
+@endpush

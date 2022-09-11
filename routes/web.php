@@ -46,6 +46,8 @@ Route::get('prodi/export/',[ProdiController::class,'ExportProdis']);
 Route::post('prodi/import/',[ProdiController::class,'ImportProdis'])->name('ImportProdis');
 Route::get('matkuls/export/',[MatkulController::class,'exportMatkuls']);
 Route::post('matkuls/import/',[MatkulController::class,'importMatkuls'])->name('ImportMatkuls'); 
+Route::get('strukturkurikulums/export/{prodi_id}/{masterkurikulum_id}',[StrukturKurikulumController::class,'exportStrukturKurikulum'])->name('ExporStruktur');
+Route::post('strukturkurikulums/import/',[StrukturKurikulumController::class,'importStrukturKurikulum'])->name('ImportStruktur');
 Route::get('/filterByFaculty/id',[ProdiController::class,'filterByFaculty']);
 
 

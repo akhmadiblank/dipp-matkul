@@ -79,14 +79,38 @@
                   <select class="form-select" name="jenjang_id">
                     <option selected value="">Choose option</option>
                     @foreach ($jenjang as $item )
-                  
+                    @if (old('jenjang_id')==$item->id)
+                    <option selected value="{{ $item->id }}">{{$item->nama }}</option>
+                    @else
                     <option value="{{ $item->id }}">{{$item->nama }}</option>
-                 
+                    @endif
                     @endforeach
                    </select>
                    </div>
                 </div>
                 <div class="form-group row">
+                  <label for="fakultas" class="col-md-2 col-form-label">Akreditasi</label>
+                  <div class="col-md-10">
+                    <select class="js-example-responsive" name="akreditasi[]" multiple="multiple" style="width:100%;">
+                      @foreach ( $akreditasis as $item )
+                      <option value="{{ $item->id }}">{{ $item->kode }}</option>s
+                      @endforeach
+                    </select>
+                   </div>
+                </div>
+                <div class="form-group row">
+                  <label for="fakultas" class="col-md-2 col-form-label">Kurikulum</label>
+                  <div class="col-md-10">
+                    <select class="js-example-responsive" name="masterKurikulum_id[]" multiple="multiple" style="width:100%;">
+                      @foreach ( $masterKurikulum as $item )
+                      <option value="{{ $item->id }}">{{ $item->tahun_kurikulum }}</option>
+                      @endforeach
+                    </select>
+                   </div>
+                </div>
+
+               
+                {{-- <div class="form-group row">
                   <label for="fakultas" class="col-sm-2 col-form-label">Kurikulum</label>
                   <div class="col-sm-10">
                   <select class="form-select" name="masterKurikulum_id">
@@ -100,7 +124,8 @@
                     @endforeach
                    </select>
                    </div>
-                </div>
+                </div> --}}
+
                 <button type="submit" class="btn btn-primary"> Tambah</button>
 
             </form>
@@ -116,3 +141,12 @@
   <!-- /page content -->
 
 @endsection
+@push('scripts')
+  <script>
+    $(document).ready(function() {
+    $('.js-example-responsive').select2({
+      width: 'resolve'
+    });
+});
+  </script>
+@endpush

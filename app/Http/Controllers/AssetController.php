@@ -176,8 +176,9 @@ class AssetController extends Controller
     public function cetak_laporan(Request $request){
         $room = Asset::where('ruangan_id',$request->id)->get();
         $pdf = app('dompdf.wrapper');
-        $pdf->setOptions(['defaultFont' => 'dejavu serif']);
-        $pdf->setPaper('a4', 'potrait');
+        $pdf->setOptions(['defaultFont' => 'dejavu serif','isHtml5ParserEnabled' => true,'isRemoteEnabled' => true]);
+       
+        //  $pdf->setPaper('a4', 'potrait');
         $pdf->loadView('admin.asset.print',[
             'room'=>$room,
             'nama_ruang' =>$request->nama_ruang,

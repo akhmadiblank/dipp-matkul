@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prodi;
 use App\Models\Faculty;
 use App\Models\Jenjang;
+use App\Models\Akreditasi;
 use App\Exports\ProdiExport;
 use Illuminate\Http\Request;
 use App\Imports\ProdisImport;
@@ -36,6 +37,7 @@ class ProdiController extends Controller
          $data['faculties']=Faculty::all();
          $data['masterKurikulum']=Masterkurikulum::all();
          $data['jenjang']=Jenjang::all();
+         $data['akreditasis']=Akreditasi::all();
          return view('admin.prodies.create',$data);
     }
 
@@ -47,20 +49,24 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        //  dd($request);
         $validateData = $request->validate([
             'faculty_id' => 'required',
             'kode_prodi' => 'required|unique:prodis,kode_prodi',
             'nama_prodi' => 'required',
             'jenjang_id' => 'required',
-            'masterKurikulum_id' => 'required',
+            // 'masterKurikulum_id' => 'required',
         ]);
         // dd($validateData);
+
         
       
         //return $validateData;
 
-        Prodi::create($validateData);
+        $prodi=Prodi::create($validateData);
+        $prodi->akreditasi()->attach($request->akreditasi);
+        $prodi->masterkurikulums()->attach($request->masterKurikulum_id);
+        
         return redirect('prodi')->with('success', 'Program Studi Sudah berhasil di tambahkan ');
 
     }
@@ -89,7 +95,8 @@ class ProdiController extends Controller
             'faculties'=>Faculty::all(),
             'prodi'=>$prodi,
             'masterKurikulum'=>Masterkurikulum::all(),
-            'jenjang' =>Jenjang::all()
+            'jenjang' =>Jenjang::all(),
+            'akreditasis' =>Akreditasi::all(),
             ]);
     }
 
@@ -102,16 +109,21 @@ class ProdiController extends Controller
      */
     public function update(Request $request, Prodi $prodi)
     {
-        $rules = [
+        $validateData = $request->validate([
             'faculty_id' => 'required',
             'kode_prodi' => 'required',
             'nama_prodi' => 'required',
-            'jenjang' => 'required',
-            'masterKurikulum_id' => 'required'
-        ];
-        $validateData = $request->validate($rules);
-        Prodi::where('id', $prodi->id)
-            ->update($validateData);
+            'jenjang_id' => 'required',
+            
+        ]);
+        // dd($validateData);
+
+        
+      
+        //return $validateData;
+        Prodi::where('id',$prodi->id)->update($validateData);
+        prodi::findOrFail($prodi->id)->akreditasi()->sync($request->akreditasi);
+        prodi::findOrFail($prodi->id)->masterkurikulums()->sync($request->masterKurikulum_id);
         return redirect('prodi')->with('success', 'Program Studi Sudah berhasil di update');
 
 
@@ -125,6 +137,8 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
+        Prodi::findOrFail($prodi->id)->akreditasi()->detach();
+        Prodi::findOrFail($prodi->id)->masterkurikulums()->detach();
         Prodi::destroy($prodi->id);
         return redirect('prodi')->with('success', 'Program Studi Sudah berhasil di hapus');
 

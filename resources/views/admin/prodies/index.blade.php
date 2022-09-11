@@ -51,6 +51,7 @@
                     <th scope="col">Kode Program Studi</th>
                     <th scope="col">Nama Program Studi</th>
                     <th scope="col">jenjang</th>
+                    <th scope="col">Akreditasi</th>
                     <th scope="col">Kurikulum</th>
                     <th scope="col" class="">Action</th>
                   </tr>
@@ -64,7 +65,25 @@
                     <td>{{ $prodi->kode_prodi }}</td>
                     <td>{{ $prodi->nama_prodi }}</td>
                     <td>{{ $prodi->jenjang->nama}}</td>
-                    <td>{{ $prodi->masterkurikulum->tahun_kurikulum}}</td>
+                    <td>
+                      <ul>
+                        @foreach ( $prodi->akreditasi as $item)
+                        <li>{{ $item->kode }}</li>
+                        @endforeach
+                      </ul>
+                  </td>
+                    <td>
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Tahun Kurikulum<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                          @foreach ($prodi->masterkurikulums as $item )
+                          <li><a class="dropdown-item" href="{{ route('showkurikulum',['prodi_id'=>$prodi->id,'masterkurikulum_id'=>$item->id])}}">{{ $item->tahun_kurikulum }}</a></li>
+                          @endforeach
+                        </ul>
+                      </div>
+                     
+                    </td>
                     <td class="d-flex align-items-center">
                       {{-- <a href="" class="badge badge-primary mx-1">Detail</a> --}}
                       <a href="{{ route('prodi.edit',$prodi->id)}}" class="badge badge-success mx-1">Update</a>

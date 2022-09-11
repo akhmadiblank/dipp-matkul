@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Matkul;
+use App\Models\Jenjang;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,14 +16,22 @@ class MatkulsImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-        return new Matkul([
-            'kode_matkul'=>$row['kode_matkul'],
-            'nama_matkul'=>$row['nama_matkul'],
-            'jenjang_id'=>$row['jenjang_id'],
-        ]);
+        foreach ($row as $key => $value) {
+            if($value == '-' || $value == '') {
+                $row[$key] = null;
+            }
+        }
+        //jenjang_id
+        $jenjang=Jenjang::where('nama','like',"%%{$row['jenjang']}")->first();
+
+        //compile data
+        $data=[
+            'kode_matkul'=>$row['kode_mata_kuliah'],
+            'nama_matkul'=>$row['nama_mata_kuliah'],
+            'jenjang'=>$jenjang??'_',
+        ];
+
+
     }
-    public function headingRow(): int
-    {
-        return 2;
-    }
+
 }
