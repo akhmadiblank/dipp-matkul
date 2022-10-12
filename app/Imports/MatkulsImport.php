@@ -28,8 +28,11 @@ class MatkulsImport implements ToModel,WithHeadingRow
         $data=[
             'kode_matkul'=>$row['kode_mata_kuliah'],
             'nama_matkul'=>$row['nama_mata_kuliah'],
-            'jenjang'=>$jenjang??'_',
+            'jenjang_id'=>$jenjang->id??'_',
         ];
+        $matkul= Matkul::updateOrCreate($data);
+        return $matkul;
+
 
 
     }

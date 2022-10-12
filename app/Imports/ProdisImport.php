@@ -20,7 +20,7 @@ class ProdisImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row);
+         //dd($row);
          // replace '-' with NULL
          foreach ($row as $key => $value) {
             if($value == '-' || $value == '') {
@@ -64,7 +64,7 @@ class ProdisImport implements ToModel,WithHeadingRow
             'jenjang_id'=>$jenjang->id??'_',
         ];
 
-        $prodi=Prodi::updateOrCreate($data);
+        $prodi=Prodi::Create($data);
         $prodi->akreditasi()->attach($value_akreditasis);
         $prodi->masterkurikulums()->attach($value_tahun_kurikulum);
         return $prodi;

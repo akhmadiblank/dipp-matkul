@@ -9,6 +9,7 @@ use App\Models\KategoriUnsur;
 use App\Models\StrukturKurikulum;
 use App\Exports\Struktur_kurikulumsExport;
 use App\Imports\Struktur_kurikulumsImport;
+use App\Models\Prodi;
 use Maatwebsite\Excel\Facades\Excel;
 use id;
 
@@ -154,10 +155,12 @@ class StrukturKurikulumController extends Controller
     }
     public function createkurikulum($prodi_id,$masterkurikulum_id)
     {
+        $filtermatkul=Prodi::where('id',$prodi_id)->first();
+        // dd($filtermatkul->jenjang_id);
         $data['prodi_id']=$prodi_id;
         $data['masterkurikulum_id']=$masterkurikulum_id;
         $data['semester']=Semester::all();
-        $data['matkul']=Matkul::all();
+        $data['matkul']=Matkul::where('jenjang_id',$filtermatkul->jenjang_id)->get();
         $data['kategori_unsurs']=KategoriUnsur::all();
         
         return view('admin.struktur_kurikulum.create',$data);

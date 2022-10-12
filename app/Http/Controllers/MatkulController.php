@@ -19,8 +19,13 @@ class MatkulController extends Controller
      */
     public function index()
     {
+        $matkuls=Matkul::with('jenjang');
+        if(request('search')){
+            $matkuls->where('nama_matkul','like','%'.request('search').'%')
+                    ->orWhere('kode_matkul','like','%'.request('search').'%');
+        }
         return view('admin.matkul.index',[
-            'matkuls' => Matkul::with('jenjang')->get()
+            'matkuls' =>$matkuls->paginate(50)      
         ]);
     }
 

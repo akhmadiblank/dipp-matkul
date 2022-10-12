@@ -1,8 +1,8 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
-      <div class="navbar nav_title" style="border: 0;">
+      {{-- <div class="navbar nav_title" style="border: 0;">
         <a href="/" class="site_title"> <img src="{{ URL::asset('images/logo-unair.png')}}" alt="..." class="img-circle" width="23%"></i> <span>Dashboard</span></a>
-      </div>
+      </div> --}}
 
       <div class="clearfix"></div>
 

@@ -38,13 +38,24 @@
             {{ session('success') }}
           </div>
           @endif
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="{{route('matkul.create')}}" class="btn btn-primary mt-1 mb-2"><span class="glyphicon glyphicon-plus"></span>Tambah data</a>
+            <a href="/matkuls/export/" class="btn btn-success mt-1 mb-2"><span class="
+            glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
+            Export</a>
+          <a href="" class="btn btn-success mt-1 mb-2" data-bs-toggle="modal" data-bs-target="#importmodal"> <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Import</a>
+          <div class="col-8 mt-2">
+            <form action="/matkul" method="get">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search..." name="search" value="{{ request('search') }}">
+                <button class="btn btn-danger" type="submit" id="btn-search">Search</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-          <a href="{{route('matkul.create')}}" class="btn btn-primary mt-1 mb-2">Tambah data Baru</a>
-          <a href="/matkuls/export/" class="btn btn-success mt-1 mb-2">Export Mata Kuliah</a>
-          <a href="" class="btn btn-success mt-1 mb-2" data-bs-toggle="modal" data-bs-target="#importmodal">Import Mata Kuliah</a>
-          {{-- @dd($matkuls) --}}
-          <table class="table table-hover"  id="datatable" style="width:100%">
-            
+          @if ($matkuls->count())
+          <table class="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -55,12 +66,16 @@
                 </tr>
               </thead>
               <tbody>
+                @php
+                  $skipped = ($matkuls->currentPage() * $matkuls->perPage()) - $matkuls->perPage();
+                @endphp
+                
                 @foreach ($matkuls as $matkul )
                 {{-- @dd( $prodi->faculty->nama_fakultas ) --}}
                 <tr> 
-                  <th scope="row">{{ $loop->iteration }}</th>
+                  <th scope="row">{{ $loop->iteration+$skipped }}</th>
                   <td>{{ $matkul->kode_matkul }}</td>
-                  <td>{{ $matkul->nama_matkul }}</td>
+                  <td>{{ @$matkul->nama_matkul }}</td>
                   <td>{{ $matkul->jenjang->nama }}</td>
                   <td class="d-flex align-items-center">
                     <a href="{{ route('matkul.edit',$matkul->id)}}" class="badge badge-success mx-1">Update</a>
@@ -73,11 +88,18 @@
                 </tr>
                 @endforeach
               </tbody>
-          </table>
-      </div>
+            </table>
+            {{ $matkuls->perPage()}}  From {{ $matkuls->total() }} Data
+          </div>
+          @else
+          <p class="text-center fs-4 mt-5">Mata Kuliah Tidak Di Ketemukan</p>
+          @endif
 
-    </div>
-
+          <div class="d-flex justify-content-center">
+            {{ $matkuls->links() }}
+          </div>
+        </div>
+        
   </div>
   <br />
 

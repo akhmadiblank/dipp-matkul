@@ -61,7 +61,7 @@
                   {{-- @dd( $prodi->masterkurikulum ) --}}
                   <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $prodi->faculty->nama_fakultas }}</td>
+                    <td>{{ @$prodi->faculty->nama_fakultas }}</td>
                     <td>{{ $prodi->kode_prodi }}</td>
                     <td>{{ $prodi->nama_prodi }}</td>
                     <td>{{ $prodi->jenjang->nama}}</td>

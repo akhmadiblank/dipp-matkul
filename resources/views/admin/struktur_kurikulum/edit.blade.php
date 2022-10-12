@@ -61,7 +61,7 @@
                   <label class="control-label col-md-3 col-sm-3 ">Nama Mata Kuliah</label>
                   <div class="col-md-9 col-sm-9 ">
 
-                    <select class="form-control"  name="matkul_id">
+                    <select class="form-control" id="matkul_id" name="matkul_id">
                       <option>Choose option</option>
                       @foreach ($matkul as $item )
                       @if (old('matkul_id',$item->id)==$param->matkul_id)
@@ -94,7 +94,7 @@
                   <div class="col-sm-3 col-md-3 mt-3"><label class="control-label col-md-3 col-sm-">Bentuk Pembelajaran</div>
                   <div class="col-sm-3 col-md-3">
                     <label for="merk_barang" class="form-label">Kuliah</label>
-                    <input  class="form-control @error('merk_barang')is-invalid @enderror" id="merk_barang" name="bentuk_pembelajaran[]" style="border-radius: 7px" value ="{{$param->bentuk_pembelajaran[2]}}">
+                    <input  class="form-control @error('bentuk_pemebelajaran[]')is-invalid @enderror" id="Kuliah" name="bentuk_pembelajaran[]" style="border-radius: 7px" value ="{{$param->bentuk_pembelajaran[2]}}">
                     @error('bentuk_pembelajaran')
                     <div id="validationServer03Feedback" class="invalid-feedback">
                       {{ $message }}
@@ -103,8 +103,8 @@
                   </div>
                   <div class="col-sm-3 col-md-3">
                     <label for="praktek" class="form-label">Praktek</label>
-                    <input  class="form-control @error('praktek')is-invalid @enderror" id="praktek" name="bentuk_pembelajaran[]" style="border-radius: 7px" value ="{{$param->bentuk_pembelajaran[7]}}">
-                    @error('praktek')
+                    <input  class="form-control @error('bentuk_pemebelajaran[]')is-invalid @enderror" id="Praktek" name="bentuk_pembelajaran[]" style="border-radius: 7px" value ="{{$param->bentuk_pembelajaran[7]}}">
+                    @error('bentuk_pemebelajaran[]')
                     <div id="validationServer03Feedback" class="invalid-feedback">
                       {{ $message }}
                     </div>
@@ -113,8 +113,8 @@
 
                   <div class="col-md-3 col-sm-3">
                     <label for="tutorial" class="form-label">Tutorial</label>
-                    <input  class="form-control @error('tutorial')is-invalid @enderror" id="tutorial" name="bentuk_pembelajaran[]" style="border-radius: 7px" value ="{{ $param->bentuk_pembelajaran[12]}}">
-                    @error('tutorial')
+                    <input  class="form-control @error('bentuk_pembelajaran[]')is-invalid @enderror" id="tutorial" name="bentuk_pembelajaran[]" style="border-radius: 7px" value ="{{ $param->bentuk_pembelajaran[12]}}">
+                    @error('bentuk_pemebelajaran[]')
                     <div id="validationServer03Feedback" class="invalid-feedback">
                       {{ $message }}
                     </div>
@@ -233,6 +233,7 @@
     $('.js-example-responsive').select2({
       width: 'resolve'
     });
+    $("select").select2();
 });
   </script>
 @endpush

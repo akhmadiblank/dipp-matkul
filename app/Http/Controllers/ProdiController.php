@@ -23,7 +23,7 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        $data['prodies']=Prodi::all();
+        $data['prodies']=Prodi::with(['faculty','jenjang','akreditasi','masterkurikulums'])->get();
         return view('admin.prodies.index',$data);
     }
 

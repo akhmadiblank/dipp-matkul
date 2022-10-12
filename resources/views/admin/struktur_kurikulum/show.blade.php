@@ -71,7 +71,7 @@
                 @foreach ($kurikulum as $item)
                 <tr>
                   <td>{{$item->semester->semester}}</td>
-                  <td>{{$item->matkul->nama_matkul}}</td>
+                  <td>{{@$item->matkul->nama_matkul}}</td>
                   <td>{{$item->beban_studi}}</td>
 
                   @php $bentukbobot = $item->bentuk_pembelajaran ? json_decode($item->bentuk_pembelajaran, true) : []; @endphp

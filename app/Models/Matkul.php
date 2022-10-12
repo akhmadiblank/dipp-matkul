@@ -23,4 +23,16 @@ class Matkul extends Model
     public function jenjang(){
         return $this->belongsTo(Jenjang::class,"jenjang_id");
     }
+    public function scopeFilter($query, array $filter) 
+    {
+     // dd($filter[0]);
+        $query->when($filter['search'] ?? false, function ($query, $search) {
+            return $query->where(function ($query) use ($search) {
+                $query->where('nama_matkul', 'like', '%' . $search . '%')
+                    ->orWhere('kode_matkul', 'like', '%' . $search . '%');
+            });
+        }); 
+       
+    }
+
 }
