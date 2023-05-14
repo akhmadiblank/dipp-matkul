@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prodi;
-use App\Models\Jenjang;
 use App\Models\Matkul;
+use App\Models\Jenjang;
 use Illuminate\Http\Request;
 use App\Exports\MatkulsExport;
 use App\Imports\MatkulsImport;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MatkulController extends Controller
@@ -50,9 +51,16 @@ class MatkulController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'kode_matkul' => 'required|unique:matkuls,kode_matkul',
+            'kode_matkul' => 'required',
             'nama_matkul' => 'required',
-            'jenjang_id' => 'required',
+            'jenjang_id' => [
+                'required',
+                Rule::unique('matkuls')->where(function ($query) {
+                    return $query->where('kode_matkul', request('kode_matkul'))
+                        ->where('jenjang_id', request('jenjang_id'));
+                }),
+            ],
+            
         ]);
         // dd($validateData);
         //return $validateData;

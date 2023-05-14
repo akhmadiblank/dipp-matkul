@@ -38,6 +38,16 @@
             {{ session('success') }}
           </div>
           @endif
+
+          @if ($errors->any())
+              <div class="alert alert-danger">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
           <div class="d-flex justify-content-between align-items-center">
             <a href="{{route('matkul.create')}}" class="btn btn-primary mt-1 mb-2"><span class="glyphicon glyphicon-plus"></span>Tambah data</a>
             <a href="/matkuls/export/" class="btn btn-success mt-1 mb-2"><span class="

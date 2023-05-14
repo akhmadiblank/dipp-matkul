@@ -15,10 +15,11 @@ class CreateMatkulsTable extends Migration
     {
         Schema::create('matkuls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('prodi_id');
-            $table->String('kode_matkul')->unique();
+            $table->String('kode_matkul');
             $table->String('nama_matkul');
+            $table->foreignId('jenjang_id');
             $table->timestamps();
+            $table->unique(['kode_matkul', 'jenjang_id']);
         });
     }
 
